@@ -3,211 +3,436 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>EXAM GATE // SYSTEM ACCESS</title>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;600;700&family=Share+Tech+Mono&display=swap');
 
-  *{margin:0;padding:0;box-sizing:border-box;}
+*{margin:0;padding:0;box-sizing:border-box;}
 
-  :root{
-    --cyan:#00f5ff;
-    --magenta:#ff00aa;
-    --green:#00ff88;
-    --gold:#ffd700;
-    --purple:#aa44ff;
-    --bg:#060810;
-  }
+:root{
+  --cyan:#00f5ff;
+  --magenta:#ff00aa;
+  --green:#00ff88;
+  --gold:#ffd700;
+  --purple:#aa44ff;
+  --red:#ff4466;
+  --bg:#020408;
+}
 
-  body{
-    background:var(--bg);
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    font-family:'Rajdhani',sans-serif;
-    overflow-x:hidden;
-    position:relative;
-    padding:30px 20px;
-  }
+body{
+  background:var(--bg);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  font-family:'Rajdhani',sans-serif;
+  overflow-x:hidden;
+  position:relative;
+  padding:30px 20px;
+  color:white;
+}
 
-  .grid-bg{
-    position:fixed;inset:0;
-    background-image:
-      linear-gradient(rgba(0,245,255,0.04) 1px,transparent 1px),
-      linear-gradient(90deg,rgba(0,245,255,0.04) 1px,transparent 1px);
-    background-size:50px 50px;
-    animation:gridMove 20s linear infinite;
-    pointer-events:none;
-  }
-  @keyframes gridMove{0%{background-position:0 0;}100%{background-position:50px 50px;}}
+/* ===== BACKGROUND LAYERS ===== */
+#particles{position:fixed;inset:0;pointer-events:none;z-index:1;}
 
-  .orb{position:fixed;border-radius:50%;filter:blur(90px);opacity:0.16;pointer-events:none;animation:orbFloat 8s ease-in-out infinite;}
-  .orb1{width:450px;height:450px;background:var(--cyan);top:-130px;left:-130px;animation-delay:0s;}
-  .orb2{width:320px;height:320px;background:var(--magenta);bottom:-90px;right:-90px;animation-delay:-3s;}
-  .orb3{width:220px;height:220px;background:var(--purple);top:45%;left:58%;animation-delay:-5s;}
-  @keyframes orbFloat{0%,100%{transform:translate(0,0);}50%{transform:translate(28px,-28px);}}
+.grid-bg{
+  position:fixed;inset:0;
+  background-image:
+    linear-gradient(rgba(0,245,255,0.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(0,245,255,0.025) 1px,transparent 1px);
+  background-size:80px 80px;
+  animation:gridMove 30s linear infinite;
+  pointer-events:none;z-index:2;
+}
+@keyframes gridMove{0%{background-position:0 0;}100%{background-position:80px 80px;}}
 
-  .scanlines{position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,245,255,0.012) 2px,rgba(0,245,255,0.012) 4px);pointer-events:none;z-index:10;}
+.orb{position:fixed;border-radius:50%;filter:blur(120px);opacity:0.08;pointer-events:none;z-index:1;animation:orbFloat 15s ease-in-out infinite;}
+.orb1{width:700px;height:700px;background:var(--cyan);top:-250px;left:-200px;animation-delay:0s;}
+.orb2{width:600px;height:600px;background:var(--magenta);bottom:-200px;right:-200px;animation-delay:-5s;}
+.orb3{width:500px;height:500px;background:var(--purple);top:50%;left:55%;animation-delay:-10s;}
+@keyframes orbFloat{0%,100%{transform:translate(0,0) scale(1);}25%{transform:translate(40px,-30px) scale(1.1);}50%{transform:translate(-20px,40px) scale(0.95);}75%{transform:translate(30px,20px) scale(1.05);}}
 
-  /* HEADER */
-  .header{text-align:center;margin-bottom:40px;position:relative;z-index:5;animation:fadeDown 0.8s ease both;}
-  @keyframes fadeDown{from{opacity:0;transform:translateY(-28px);}to{opacity:1;transform:translateY(0);}}
-  .header-label{font-size:10px;letter-spacing:6px;color:var(--cyan);text-transform:uppercase;margin-bottom:8px;opacity:0.7;}
-  .header h1{font-family:'Orbitron',monospace;font-size:clamp(26px,5vw,44px);font-weight:900;color:white;letter-spacing:4px;text-transform:uppercase;}
-  .header h1 span{background:linear-gradient(135deg,var(--cyan),var(--magenta));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .header-line{width:100px;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);margin:12px auto 0;animation:linePulse 2s ease-in-out infinite;}
-  @keyframes linePulse{0%,100%{opacity:0.4;width:70px;}50%{opacity:1;width:140px;}}
+.vignette{position:fixed;inset:0;background:radial-gradient(ellipse at center,transparent 30%,rgba(2,4,8,0.8) 100%);pointer-events:none;z-index:3;}
 
-  /* CARD LIST */
-  .card-list{
-    display:flex;flex-direction:column;gap:12px;
-    width:min(480px,92vw);
-    position:relative;z-index:5;
-  }
+.scanlines{position:fixed;inset:0;background:repeating-linear-gradient(0deg,transparent,transparent 4px,rgba(0,245,255,0.008) 4px,rgba(0,245,255,0.008) 8px);pointer-events:none;z-index:10;}
 
-  /* MODULE CARD — horizontal strip */
-  .mcard{
-    position:relative;
-    display:flex;align-items:center;gap:0;
-    background:rgba(255,255,255,0.025);
-    border:1px solid rgba(255,255,255,0.07);
-    border-left:none;
-    border-radius:2px;
-    cursor:pointer;
-    overflow:hidden;
-    clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
-    transition:transform 0.22s ease,border-color 0.22s ease;
-    animation:cardIn 0.55s ease both;
-    text-decoration:none;
-  }
-  .mcard:nth-child(1){animation-delay:0.08s;}
-  .mcard:nth-child(2){animation-delay:0.16s;}
-  .mcard:nth-child(3){animation-delay:0.24s;}
-  .mcard:nth-child(4){animation-delay:0.32s;}
+.noise{position:fixed;inset:0;opacity:0.03;pointer-events:none;z-index:4;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");}
 
-  @keyframes cardIn{from{opacity:0;transform:translateX(-16px);}to{opacity:1;transform:translateX(0);}}
+/* ===== GLITCH HEADER ===== */
+.header{text-align:center;margin-bottom:60px;position:relative;z-index:5;}
+.header-label{
+  font-family:'Share Tech Mono',monospace;font-size:10px;letter-spacing:10px;
+  color:var(--cyan);text-transform:uppercase;margin-bottom:15px;
+  opacity:0.5;animation:flicker 4s infinite;
+}
+@keyframes flicker{0%,100%{opacity:0.5;}5%{opacity:0.1;}10%{opacity:0.5;}15%{opacity:0.1;}20%{opacity:0.5;}50%{opacity:0.5;}52%{opacity:0.8;}54%{opacity:0.5;}}
 
-  /* Glow sweep on hover */
-  .mcard::after{
-    content:'';position:absolute;top:0;left:-120%;width:60%;height:100%;
-    background:linear-gradient(90deg,transparent,rgba(255,255,255,0.04),transparent);
-    transition:left 0.5s ease;pointer-events:none;
-  }
-  .mcard:hover::after{left:140%;}
-  .mcard:hover{transform:translateX(5px) scale(1.01);border-color:var(--accent,rgba(0,245,255,0.35));}
+.glitch-wrapper{position:relative;display:inline-block;}
+.glitch-wrapper h1{
+  font-family:'Orbitron',monospace;font-size:clamp(40px,8vw,72px);font-weight:900;
+  letter-spacing:8px;text-transform:uppercase;color:white;position:relative;
+}
+.glitch-wrapper h1 span{
+  background:linear-gradient(90deg,var(--cyan),var(--magenta),var(--purple),var(--cyan));
+  background-size:300% 100%;-webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:gradientFlow 3s linear infinite;
+}
+@keyframes gradientFlow{0%{background-position:0% 50%;}100%{background-position:300% 50%;}}
 
-  /* LEFT ACCENT BAR */
-  .mcard-bar{
-    width:4px;height:100%;min-height:72px;
-    background:linear-gradient(180deg,var(--accent),transparent);
-    flex-shrink:0;
-    transition:width 0.2s;
-  }
-  .mcard:hover .mcard-bar{width:5px;}
+/* Glitch layers */
+.glitch-wrapper::before,.glitch-wrapper::after{
+  content:'EXAM GATE';position:absolute;top:0;left:0;width:100%;height:100%;
+  font-family:'Orbitron',monospace;font-size:clamp(40px,8vw,72px);font-weight:900;
+  letter-spacing:8px;text-transform:uppercase;pointer-events:none;
+}
+.glitch-wrapper::before{
+  color:var(--cyan);clip-path:polygon(0 0,100% 0,100% 45%,0 45%);
+  animation:glitchTop 2.5s infinite linear alternate-reverse;
+}
+.glitch-wrapper::after{
+  color:var(--magenta);clip-path:polygon(0 55%,100% 55%,100% 100%,0 100%);
+  animation:glitchBottom 3s infinite linear alternate-reverse;
+}
+@keyframes glitchTop{
+  0%,100%{transform:translate(0);}20%{transform:translate(-3px,2px);}40%{transform:translate(3px,-2px);}60%{transform:translate(-2px,1px);}80%{transform:translate(2px,-1px);}
+}
+@keyframes glitchBottom{
+  0%,100%{transform:translate(0);}20%{transform:translate(3px,-2px);}40%{transform:translate(-3px,2px);}60%{transform:translate(2px,-1px);}80%{transform:translate(-2px,1px);}
+}
 
-  /* ICON BOX */
-  .mcard-icon{
-    width:64px;height:72px;
-    display:flex;align-items:center;justify-content:center;
-    flex-shrink:0;
-    background:linear-gradient(135deg,rgba(255,255,255,0.04),transparent);
-    border-right:1px solid rgba(255,255,255,0.06);
-    position:relative;
-  }
-  .mcard-icon svg{width:28px;height:28px;transition:transform 0.3s ease;}
-  .mcard:hover .mcard-icon svg{transform:scale(1.18);}
+.header-line{
+  width:200px;height:2px;
+  background:linear-gradient(90deg,transparent,var(--cyan),var(--magenta),var(--purple),transparent);
+  margin:20px auto 0;position:relative;overflow:hidden;
+}
+.header-line::after{
+  content:'';position:absolute;top:0;left:-100%;width:50%;height:100%;
+  background:linear-gradient(90deg,transparent,white,transparent);
+  animation:lineSweep 3s ease-in-out infinite;
+}
+@keyframes lineSweep{0%,100%{left:-100%;}50%{left:150%;}}
 
-  /* TEXT */
-  .mcard-text{flex:1;padding:0 18px;}
-  .mcard-name{
-    font-family:'Orbitron',monospace;font-size:13px;font-weight:700;
-    letter-spacing:2.5px;text-transform:uppercase;color:white;margin-bottom:3px;
-  }
-  .mcard-sub{font-size:10px;letter-spacing:2px;color:var(--accent);opacity:0.65;text-transform:uppercase;}
+.header-sub{
+  font-family:'Share Tech Mono',monospace;font-size:11px;letter-spacing:4px;
+  color:rgba(255,255,255,0.3);margin-top:15px;
+}
 
-  /* ARROW */
-  .mcard-arrow{
-    padding:0 18px;opacity:0.3;
-    font-size:16px;color:white;
-    transition:opacity 0.2s,transform 0.2s;
-    flex-shrink:0;
-  }
-  .mcard:hover .mcard-arrow{opacity:0.8;transform:translateX(3px);}
+/* ===== CARD CONTAINER ===== */
+.card-list{
+  display:flex;flex-direction:column;gap:20px;
+  width:min(600px,92vw);
+  position:relative;z-index:5;
+  perspective:1200px;
+}
 
-  /* INDEX NUMBER */
-  .mcard-num{
-    position:absolute;top:6px;right:10px;
-    font-family:'Orbitron',monospace;font-size:9px;
-    color:var(--accent);opacity:0.25;letter-spacing:1px;
-  }
+/* ===== MODULE CARD ===== */
+.mcard{
+  position:relative;
+  display:flex;align-items:center;
+  background:linear-gradient(135deg,rgba(255,255,255,0.03),rgba(255,255,255,0.01));
+  border:1px solid rgba(255,255,255,0.06);
+  border-left:none;
+  border-radius:6px;
+  cursor:pointer;
+  overflow:hidden;
+  clip-path:polygon(0 0,calc(100% - 18px) 0,100% 18px,100% 100%,18px 100%,0 calc(100% - 18px));
+  transition:all 0.4s cubic-bezier(0.23,1,0.32,1);
+  animation:cardIn 0.7s ease both;
+  text-decoration:none;
+  transform-style:preserve-3d;
+}
+.mcard:nth-child(1){animation-delay:0.15s;}
+.mcard:nth-child(2){animation-delay:0.3s;}
+.mcard:nth-child(3){animation-delay:0.45s;}
+.mcard:nth-child(4){animation-delay:0.6s;}
 
-  /* CORNER ACCENTS */
-  .mcc{position:absolute;width:8px;height:8px;opacity:0.5;}
-  .mcc-tl{top:5px;left:9px;border-top:1px solid var(--accent);border-left:1px solid var(--accent);}
-  .mcc-br{bottom:5px;right:5px;border-bottom:1px solid var(--accent);border-right:1px solid var(--accent);}
+@keyframes cardIn{
+  from{opacity:0;transform:translateX(-50px) rotateY(-15deg) scale(0.95);}
+  to{opacity:1;transform:translateX(0) rotateY(0) scale(1);}
+}
 
-  /* ACCENT COLORS */
-  .mcard-gero  {--accent:#00f5ff;}
-  .mcard-emerg {--accent:#ff4466;}
-  .mcard-nurs  {--accent:#aa44ff;}
-  .mcard-medsurg{--accent:#00ff88;}
+/* Holographic border glow */
+.mcard::before{
+  content:'';position:absolute;inset:-2px;
+  background:linear-gradient(45deg,var(--accent),transparent,var(--accent),transparent);
+  opacity:0;transition:opacity 0.4s;z-index:-1;
+  animation:borderRotate 3s linear infinite;
+}
+@keyframes borderRotate{0%{filter:hue-rotate(0deg);}100%{filter:hue-rotate(360deg);}}
+.mcard:hover::before{opacity:0.5;}
 
-  /* STATUS */
-  .status{
-    margin-top:28px;display:flex;align-items:center;gap:8px;
-    font-size:10px;letter-spacing:3px;color:rgba(0,245,255,0.35);
-    text-transform:uppercase;position:relative;z-index:5;
-    animation:fadeUp 1s ease 0.7s both;
-  }
-  @keyframes fadeUp{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
-  .dot{width:5px;height:5px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:blink 1.5s ease-in-out infinite;}
-  @keyframes blink{0%,100%{opacity:1;}50%{opacity:0.2;}}
+/* Inner glow */
+.mcard::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at var(--mx,50%) var(--my,50%),var(--accent-glow),transparent 60%);
+  opacity:0;transition:opacity 0.3s;pointer-events:none;
+}
+.mcard:hover::after{opacity:0.15;}
 
-  /* DONATE BUTTON */
-  .donation-wrap{margin-top:20px;position:relative;z-index:5;animation:fadeUp 1s ease 0.9s both;}
-  .donate-btn{
-    position:relative;display:flex;align-items:center;gap:10px;
-    padding:13px 30px;background:transparent;border:none;cursor:pointer;
-    font-family:'Orbitron',monospace;font-size:11px;font-weight:700;
-    letter-spacing:4px;text-transform:uppercase;color:white;overflow:hidden;
-    clip-path:polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
-    transition:transform 0.2s ease;
-  }
-  .donate-btn::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,140,0,0.06));border:1px solid rgba(255,215,0,0.3);clip-path:inherit;transition:background 0.3s,border-color 0.3s;}
-  .donate-btn::after{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,215,0,0.15),transparent);transition:left 0.5s ease;}
-  .donate-btn:hover{transform:translateY(-2px);}
-  .donate-btn:hover::before{background:linear-gradient(135deg,rgba(255,215,0,0.18),rgba(255,140,0,0.12));border-color:rgba(255,215,0,0.6);}
-  .donate-btn:hover::after{left:100%;}
-  .donate-icon{font-size:16px;filter:drop-shadow(0 0 5px gold);animation:hb 1.8s ease-in-out infinite;position:relative;z-index:1;}
-  @keyframes hb{0%,100%{transform:scale(1);}14%{transform:scale(1.25);}28%{transform:scale(1);}42%{transform:scale(1.15);}56%{transform:scale(1);}}
-  .donate-text{position:relative;z-index:1;background:linear-gradient(90deg,gold,#ffaa00,gold);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;animation:shine 3s linear infinite;}
-  @keyframes shine{0%{background-position:0% center;}100%{background-position:200% center;}}
-  .dc{position:absolute;width:7px;height:7px;opacity:0.6;}
-  .dc-tl{top:4px;left:4px;border-top:1px solid gold;border-left:1px solid gold;}
-  .dc-br{bottom:4px;right:4px;border-bottom:1px solid gold;border-right:1px solid gold;}
+/* Sweep shine */
+.shine-sweep{
+  position:absolute;top:0;left:-150%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,0.1),transparent);
+  transition:left 0.8s ease;pointer-events:none;
+}
+.mcard:hover .shine-sweep{left:150%;}
+
+.mcard:hover{
+  transform:translateX(12px) scale(1.03);
+  border-color:var(--accent);
+  box-shadow:
+    0 0 40px var(--accent-glow),
+    0 0 80px rgba(0,0,0,0.5),
+    inset 0 0 30px rgba(255,255,255,0.02);
+}
+
+/* LEFT ACCENT BAR */
+.mcard-bar{
+  width:5px;height:100%;min-height:90px;
+  background:linear-gradient(180deg,var(--accent),transparent 90%);
+  flex-shrink:0;position:relative;overflow:hidden;
+  transition:width 0.3s;
+}
+.mcard-bar::before{
+  content:'';position:absolute;top:-100%;left:0;width:100%;height:50%;
+  background:linear-gradient(180deg,transparent,white,transparent);
+  animation:barShine 4s ease-in-out infinite;
+}
+@keyframes barShine{0%,100%{top:-100%;}50%{top:150%;}}
+.mcard:hover .mcard-bar{width:7px;}
+
+/* ICON BOX */
+.mcard-icon{
+  width:80px;height:90px;
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;
+  background:linear-gradient(135deg,rgba(255,255,255,0.06),transparent);
+  border-right:1px solid rgba(255,255,255,0.06);
+  position:relative;overflow:hidden;
+}
+.mcard-icon::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at center,var(--accent-glow),transparent 70%);
+  opacity:0;transition:opacity 0.4s;
+}
+.mcard:hover .mcard-icon::before{opacity:0.4;}
+.mcard-icon svg{
+  width:34px;height:34px;
+  transition:all 0.5s cubic-bezier(0.34,1.56,0.64,1);
+  position:relative;z-index:1;
+}
+.mcard:hover .mcard-icon svg{
+  transform:scale(1.3) rotate(10deg);
+  filter:drop-shadow(0 0 12px var(--accent));
+}
+
+/* TEXT */
+.mcard-text{flex:1;padding:0 24px;position:relative;z-index:2;}
+.mcard-name{
+  font-family:'Orbitron',monospace;font-size:15px;font-weight:700;
+  letter-spacing:3.5px;text-transform:uppercase;color:white;
+  margin-bottom:5px;transition:all 0.3s;
+}
+.mcard:hover .mcard-name{
+  text-shadow:0 0 20px var(--accent-glow),0 0 40px var(--accent-glow);
+  letter-spacing:4.5px;
+}
+.mcard-sub{
+  font-family:'Share Tech Mono',monospace;font-size:11px;
+  letter-spacing:3px;color:var(--accent);opacity:0.5;
+  text-transform:uppercase;transition:all 0.3s;
+}
+.mcard:hover .mcard-sub{opacity:1;letter-spacing:4px;}
+
+/* ARROW */
+.mcard-arrow{
+  padding:0 24px;opacity:0.2;
+  font-size:24px;color:white;
+  transition:all 0.4s;
+  flex-shrink:0;
+  font-family:'Orbitron',monospace;
+}
+.mcard:hover .mcard-arrow{
+  opacity:1;transform:translateX(8px);
+  color:var(--accent);
+  text-shadow:0 0 15px var(--accent-glow),0 0 30px var(--accent-glow);
+}
+
+/* INDEX NUMBER */
+.mcard-num{
+  position:absolute;top:10px;right:14px;
+  font-family:'Orbitron',monospace;font-size:11px;
+  color:var(--accent);opacity:0.15;letter-spacing:2px;
+  transition:all 0.3s;
+}
+.mcard:hover .mcard-num{opacity:0.7;transform:scale(1.15);}
+
+/* CORNER ACCENTS */
+.mcc{position:absolute;width:12px;height:12px;opacity:0;transition:all 0.4s;}
+.mcc-tl{top:8px;left:12px;border-top:2px solid var(--accent);border-left:2px solid var(--accent);}
+.mcc-br{bottom:8px;right:8px;border-bottom:2px solid var(--accent);border-right:2px solid var(--accent);}
+.mcard:hover .mcc{opacity:1;}
+
+/* SCAN BAR */
+.scan-bar{
+  position:absolute;bottom:0;left:0;width:100%;height:1px;
+  background:linear-gradient(90deg,transparent,var(--accent),transparent);
+  opacity:0;transition:opacity 0.3s;
+}
+.mcard:hover .scan-bar{opacity:0.6;animation:scanMove 2s linear infinite;}
+@keyframes scanMove{0%{transform:translateX(-100%);}100%{transform:translateX(100%);}}
+
+/* FLOATING PARTICLES */
+.float-particle{
+  position:absolute;border-radius:50%;background:var(--accent);
+  opacity:0;pointer-events:none;
+}
+.mcard:hover .float-particle{animation:floatUp 1.5s ease-out forwards;}
+@keyframes floatUp{
+  0%{opacity:0.8;transform:translate(0,0) scale(1);}
+  100%{opacity:0;transform:translate(var(--tx),var(--ty)) scale(0);}
+}
+
+/* ACCENT COLORS */
+.mcard-gero  {--accent:#00f5ff;--accent-glow:rgba(0,245,255,0.5);}
+.mcard-emerg {--accent:#ff4466;--accent-glow:rgba(255,68,102,0.5);}
+.mcard-nurs  {--accent:#aa44ff;--accent-glow:rgba(170,68,255,0.5);}
+.mcard-medsurg{--accent:#00ff88;--accent-glow:rgba(0,255,136,0.5);}
+
+/* ===== STATUS ===== */
+.status{
+  margin-top:40px;display:flex;align-items:center;gap:12px;
+  font-family:'Share Tech Mono',monospace;
+  font-size:12px;letter-spacing:5px;color:rgba(0,245,255,0.35);
+  text-transform:uppercase;position:relative;z-index:5;
+  animation:fadeUp 1s ease 1s both;
+}
+@keyframes fadeUp{from{opacity:0;transform:translateY(20px);}to{opacity:1;transform:translateY(0);}}
+
+.status-dot-wrap{position:relative;width:8px;height:8px;}
+.status-dot{
+  width:8px;height:8px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 15px var(--green),0 0 30px var(--green);
+  animation:blink 2s ease-in-out infinite;
+}
+.status-dot-wrap::before{
+  content:'';position:absolute;inset:-4px;border-radius:50%;
+  border:1px solid var(--green);opacity:0;
+  animation:ping 2s ease-out infinite;
+}
+@keyframes blink{0%,100%{opacity:1;}50%{opacity:0.3;}}
+@keyframes ping{0%{transform:scale(1);opacity:0.6;}100%{transform:scale(2.5);opacity:0;}}
+
+/* ===== DONATE BUTTON ===== */
+.donation-wrap{margin-top:28px;position:relative;z-index:5;animation:fadeUp 1s ease 1.2s both;}
+.donate-btn{
+  position:relative;display:flex;align-items:center;gap:14px;
+  padding:16px 44px;background:transparent;border:none;cursor:pointer;
+  font-family:'Orbitron',monospace;font-size:13px;font-weight:700;
+  letter-spacing:6px;text-transform:uppercase;color:white;overflow:hidden;
+  clip-path:polygon(0 0,calc(100% - 16px) 0,100% 16px,100% 100%,16px 100%,0 calc(100% - 16px));
+  transition:all 0.4s cubic-bezier(0.23,1,0.32,1);
+}
+.donate-btn::before{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(135deg,rgba(255,215,0,0.1),rgba(255,140,0,0.05));
+  border:1px solid rgba(255,215,0,0.3);clip-path:inherit;
+  transition:all 0.4s;
+}
+.donate-btn::after{
+  content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;
+  background:linear-gradient(90deg,transparent,rgba(255,215,0,0.25),transparent);
+  transition:left 0.7s ease;
+}
+.donate-btn:hover{
+  transform:translateY(-4px) scale(1.02);
+}
+.donate-btn:hover::before{
+  background:linear-gradient(135deg,rgba(255,215,0,0.2),rgba(255,140,0,0.12));
+  border-color:rgba(255,215,0,0.7);
+  box-shadow:0 0 40px rgba(255,215,0,0.2),inset 0 0 20px rgba(255,215,0,0.05);
+}
+.donate-btn:hover::after{left:100%;}
+
+.donate-icon{
+  font-size:20px;filter:drop-shadow(0 0 10px gold);
+  animation:hb 2s ease-in-out infinite;position:relative;z-index:1;
+}
+@keyframes hb{0%,100%{transform:scale(1);}14%{transform:scale(1.4);}28%{transform:scale(1);}42%{transform:scale(1.25);}56%{transform:scale(1);}}
+
+.donate-text{
+  position:relative;z-index:1;
+  background:linear-gradient(90deg,gold,#ffaa00,#ff8800,gold);
+  background-size:400% auto;
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  background-clip:text;animation:shine 5s linear infinite;
+}
+@keyframes shine{0%{background-position:0% center;}100%{background-position:400% center;}}
+
+.dc{position:absolute;width:10px;height:10px;opacity:0;transition:opacity 0.4s;}
+.dc-tl{top:6px;left:6px;border-top:2px solid gold;border-left:2px solid gold;}
+.dc-br{bottom:6px;right:6px;border-bottom:2px solid gold;border-right:2px solid gold;}
+.donate-btn:hover .dc{opacity:1;}
+
+/* ===== DECORATIVE ELEMENTS ===== */
+.corner-deco{position:fixed;width:60px;height:60px;pointer-events:none;z-index:5;opacity:0.3;}
+.corner-deco.tl{top:20px;left:20px;border-top:2px solid var(--cyan);border-left:2px solid var(--cyan);}
+.corner-deco.tr{top:20px;right:20px;border-top:2px solid var(--cyan);border-right:2px solid var(--cyan);}
+.corner-deco.bl{bottom:20px;left:20px;border-bottom:2px solid var(--cyan);border-left:2px solid var(--cyan);}
+.corner-deco.br{bottom:20px;right:20px;border-bottom:2px solid var(--cyan);border-right:2px solid var(--cyan);}
+
+.side-line{position:fixed;width:1px;height:100px;background:linear-gradient(180deg,transparent,var(--cyan),transparent);pointer-events:none;z-index:5;opacity:0.2;}
+.side-line.l{left:30px;top:50%;transform:translateY(-50%);}
+.side-line.r{right:30px;top:50%;transform:translateY(-50%);}
+
+/* ===== RESPONSIVE ===== */
+@media(max-width:480px){
+  .mcard-icon{width:65px;height:75px;}
+  .mcard-icon svg{width:26px;height:26px;}
+  .mcard-text{padding:0 16px;}
+  .mcard-name{font-size:13px;letter-spacing:2px;}
+  .mcard-sub{font-size:10px;letter-spacing:2px;}
+  .mcard-arrow{padding:0 16px;font-size:18px;}
+  .corner-deco{display:none;}
+}
 </style>
+<base target="_blank">
 </head>
 <body>
 
+<canvas id="particles"></canvas>
 <div class="grid-bg"></div>
 <div class="orb orb1"></div>
 <div class="orb orb2"></div>
 <div class="orb orb3"></div>
+<div class="vignette"></div>
 <div class="scanlines"></div>
+<div class="noise"></div>
+
+<div class="corner-deco tl"></div>
+<div class="corner-deco tr"></div>
+<div class="corner-deco bl"></div>
+<div class="corner-deco br"></div>
+<div class="side-line l"></div>
+<div class="side-line r"></div>
 
 <div class="header">
-  <div class="header-label">System Access</div>
-  <h1>Exam <span>Gate</span></h1>
+  <div class="header-label">// SYSTEM ACCESS GRANTED</div>
+  <div class="glitch-wrapper">
+    <h1>EXAM <span>GATE</span></h1>
+  </div>
   <div class="header-line"></div>
+  <div class="header-sub">SELECT YOUR MODULE TO BEGIN</div>
 </div>
 
 <div class="card-list">
 
   <!-- GERONTOLOGY -->
   <div class="mcard mcard-gero" onclick="window.open('https://mahmoud755-bbb.github.io/gero-full-mcq-/','_blank')">
+    <div class="shine-sweep"></div>
     <div class="mcard-bar"></div>
     <div class="mcard-icon">
-      <!-- Old person / DNA icon for gerontology -->
       <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <circle cx="14" cy="7" r="4" stroke="#00f5ff" stroke-width="1.4"/>
         <path d="M7 24c0-3.866 3.134-7 7-7s7 3.134 7 7" stroke="#00f5ff" stroke-width="1.4" stroke-linecap="round"/>
@@ -225,13 +450,17 @@
     <div class="mcard-num">01</div>
     <div class="mcc mcc-tl"></div>
     <div class="mcc mcc-br"></div>
+    <div class="scan-bar"></div>
+    <div class="float-particle" style="--tx:40px;--ty:-50px;top:60%;left:40%;animation-delay:0s;"></div>
+    <div class="float-particle" style="--tx:-30px;--ty:-40px;top:40%;left:70%;animation-delay:0.2s;"></div>
+    <div class="float-particle" style="--tx:50px;--ty:-30px;top:70%;left:50%;animation-delay:0.4s;"></div>
   </div>
 
   <!-- EMERGENCY -->
   <div class="mcard mcard-emerg" onclick="window.open('https://mahmoud755-bbb.github.io/emergency/','_blank')">
+    <div class="shine-sweep"></div>
     <div class="mcard-bar"></div>
     <div class="mcard-icon">
-      <!-- Cross / lightning bolt -->
       <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <rect x="11.5" y="3" width="5" height="22" rx="1" fill="#ff4466" opacity="0.15"/>
         <rect x="3" y="11.5" width="22" height="5" rx="1" fill="#ff4466" opacity="0.15"/>
@@ -248,13 +477,17 @@
     <div class="mcard-num">02</div>
     <div class="mcc mcc-tl"></div>
     <div class="mcc mcc-br"></div>
+    <div class="scan-bar"></div>
+    <div class="float-particle" style="--tx:35px;--ty:-45px;top:50%;left:45%;animation-delay:0.1s;"></div>
+    <div class="float-particle" style="--tx:-40px;--ty:-35px;top:35%;left:65%;animation-delay:0.3s;"></div>
+    <div class="float-particle" style="--tx:45px;--ty:-55px;top:65%;left:55%;animation-delay:0.5s;"></div>
   </div>
 
   <!-- NURSING CONCEPT -->
   <div class="mcard mcard-nurs" onclick="window.open('https://mahmoud755-bbb.github.io/consept/','_blank')">
+    <div class="shine-sweep"></div>
     <div class="mcard-bar"></div>
     <div class="mcard-icon">
-      <!-- Brain / neuron concept -->
       <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M14 5C10.5 5 7.5 7.8 7.5 11.2c0 1.8.7 3.3 1.9 4.4-.3.6-.4 1.3-.4 2C9 19.7 11.2 22 14 22s5-2.3 5-4.4c0-.7-.1-1.4-.4-2 1.2-1.1 1.9-2.6 1.9-4.4C20.5 7.8 17.5 5 14 5z" stroke="#aa44ff" stroke-width="1.4" stroke-linecap="round"/>
         <path d="M14 5v17" stroke="#aa44ff" stroke-width="1" stroke-dasharray="2 2" opacity="0.4"/>
@@ -271,13 +504,17 @@
     <div class="mcard-num">03</div>
     <div class="mcc mcc-tl"></div>
     <div class="mcc mcc-br"></div>
+    <div class="scan-bar"></div>
+    <div class="float-particle" style="--tx:30px;--ty:-40px;top:55%;left:50%;animation-delay:0.15s;"></div>
+    <div class="float-particle" style="--tx:-35px;--ty:-50px;top:45%;left:60%;animation-delay:0.35s;"></div>
+    <div class="float-particle" style="--tx:55px;--ty:-25px;top:70%;left:40%;animation-delay:0.55s;"></div>
   </div>
 
   <!-- MEDICAL SURGICAL II -->
   <div class="mcard mcard-medsurg" onclick="window.open('https://mahmoud755-bbb.github.io/mcq-medical-/','_blank')">
+    <div class="shine-sweep"></div>
     <div class="mcard-bar"></div>
     <div class="mcard-icon">
-      <!-- Scalpel / surgical -->
       <svg viewBox="0 0 28 28" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M6 22L18 6" stroke="#00ff88" stroke-width="1.5" stroke-linecap="round"/>
         <path d="M18 6l3 1.5-1.5 3L18 6z" fill="#00ff88" opacity="0.7"/>
@@ -294,12 +531,18 @@
     <div class="mcard-num">04</div>
     <div class="mcc mcc-tl"></div>
     <div class="mcc mcc-br"></div>
+    <div class="scan-bar"></div>
+    <div class="float-particle" style="--tx:45px;--ty:-60px;top:50%;left:45%;animation-delay:0.05s;"></div>
+    <div class="float-particle" style="--tx:-25px;--ty:-45px;top:40%;left:55%;animation-delay:0.25s;"></div>
+    <div class="float-particle" style="--tx:35px;--ty:-35px;top:65%;left:50%;animation-delay:0.45s;"></div>
   </div>
 
 </div>
 
 <div class="status">
-  <div class="dot"></div>
+  <div class="status-dot-wrap">
+    <div class="status-dot"></div>
+  </div>
   Systems online · 4 modules active
 </div>
 
@@ -311,6 +554,115 @@
     <span class="donate-text">Support &amp; Donate</span>
   </button>
 </div>
+
+<script>
+// ===== PARTICLE NETWORK =====
+const canvas = document.getElementById('particles');
+const ctx = canvas.getContext('2d');
+let particles = [];
+
+function resize(){
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+resize();
+window.addEventListener('resize', resize);
+
+class Particle {
+  constructor(){
+    this.reset();
+  }
+  reset(){
+    this.x = Math.random() * canvas.width;
+    this.y = Math.random() * canvas.height;
+    this.size = Math.random() * 2 + 0.5;
+    this.speedX = (Math.random() - 0.5) * 0.4;
+    this.speedY = (Math.random() - 0.5) * 0.4;
+    this.opacity = Math.random() * 0.4 + 0.1;
+    this.hue = Math.random() > 0.5 ? 180 : 320;
+  }
+  update(){
+    this.x += this.speedX;
+    this.y += this.speedY;
+    if(this.x < 0 || this.x > canvas.width || this.y < 0 || this.y > canvas.height) this.reset();
+  }
+  draw(){
+    ctx.beginPath();
+    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${this.hue}, 100%, 70%, ${this.opacity})`;
+    ctx.fill();
+  }
+}
+
+for(let i = 0; i < 80; i++) particles.push(new Particle());
+
+function animate(){
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  particles.forEach(p => { p.update(); p.draw(); });
+
+  for(let i = 0; i < particles.length; i++){
+    for(let j = i + 1; j < particles.length; j++){
+      const dx = particles[i].x - particles[j].x;
+      const dy = particles[i].y - particles[j].y;
+      const dist = Math.sqrt(dx * dx + dy * dy);
+      if(dist < 150){
+        ctx.beginPath();
+        ctx.moveTo(particles[i].x, particles[i].y);
+        ctx.lineTo(particles[j].x, particles[j].y);
+        ctx.strokeStyle = `rgba(0, 245, 255, ${0.06 * (1 - dist / 150)})`;
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+      }
+    }
+  }
+  requestAnimationFrame(animate);
+}
+animate();
+
+// ===== 3D TILT + MOUSE GLOW =====
+document.querySelectorAll('.mcard').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const rect = card.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = (y - centerY) / 15;
+    const rotateY = (centerX - x) / 15;
+    card.style.setProperty('--mx', x + 'px');
+    card.style.setProperty('--my', y + 'px');
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) translateX(12px) scale(1.03)`;
+  });
+
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+// ===== TYPEWRITER EFFECT ON HEADER =====
+const headerSub = document.querySelector('.header-sub');
+const originalText = headerSub.textContent;
+headerSub.textContent = '';
+let charIndex = 0;
+function typeWriter(){
+  if(charIndex < originalText.length){
+    headerSub.textContent += originalText.charAt(charIndex);
+    charIndex++;
+    setTimeout(typeWriter, 50);
+  }
+}
+setTimeout(typeWriter, 800);
+
+// ===== RANDOM GLITCH FLICKER =====
+setInterval(() => {
+  const cards = document.querySelectorAll('.mcard');
+  const randomCard = cards[Math.floor(Math.random() * cards.length)];
+  randomCard.style.filter = 'brightness(1.3) saturate(1.2)';
+  setTimeout(() => {
+    randomCard.style.filter = '';
+  }, 80);
+}, 3000);
+</script>
 
 </body>
 </html>
